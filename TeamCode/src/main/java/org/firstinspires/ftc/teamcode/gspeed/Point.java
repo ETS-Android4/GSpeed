@@ -16,10 +16,12 @@ public class Point {
         return output;
     }
 
+    // y axis
     public int getRow() {
         return r;
     }
 
+    // x axis
     public int getColumn() {
         return c;
     }

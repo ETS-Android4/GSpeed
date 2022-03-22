@@ -25,12 +25,19 @@ public class PathBuilder {
         if (start.equals(end)) {
             return p;
         }
+
+        // Add starting point (of course)
         p.addPoint(start);
+
+        // todo   ???frontier???
         frontier.add(p);
+
+        // looping until a return
         while(true) {
             if (frontier.size() < 1) {
                 return new Path();
             }
+
             // Scan Frontier, find index of smallest cost + heuristic; pop it out
             Path current = getSmallest();
             Point last = current.getEnd();

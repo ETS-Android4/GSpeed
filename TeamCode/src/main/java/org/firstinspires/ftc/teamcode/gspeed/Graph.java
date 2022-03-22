@@ -8,6 +8,7 @@ public class Graph {
     // Constructor
     public Graph() { }
 
+    // 1=Open 0=Closed
     private int[][] grid = {
       new int[]{1, 1, 1, 1, 1, 1},
       new int[]{1, 1, 1, 1, 1, 1},
@@ -31,10 +32,12 @@ public class Graph {
         grid[p.getRow()][p.getColumn()] = v;
     }
 
+    /*
     // Printer
     public String printString() {
         String output = "";
 
+        // Loop through rows, where a single row evaluated with other rows flows vertically but a single row evaluated by itself flows horizontally
         for (int r=0; r<grid.length; r++) {
             String line = "";
             for (int c=0; c<grid[0].length; c++) {
@@ -44,6 +47,7 @@ public class Graph {
         }
         return output;
     }
+    */
 
     // Printer for a visual grid
     public String printPathFinder(Path path) {
@@ -73,6 +77,7 @@ public class Graph {
     }
 
     // Retrieves the non-diagonal
+    // is above comment correct?
     public ArrayList<Point> getNeighbors(Point p) {
             Point up = new Point(p.getColumn()-1, p.getRow());
             Point down = new Point(p.getColumn()+1, p.getRow());
@@ -83,7 +88,7 @@ public class Graph {
             Point upright = new Point(p.getRow()-1, p.getColumn()+1);
             Point downright = new Point(p.getRow()+1, p.getColumn()+1);
 
-            ArrayList<Point> out = new ArrayList<Point>();
+            ArrayList<Point> out = new ArrayList<>();
             Point [] n = {up, down, left, right, upleft, downleft, upright, downright};
             for (int i=0; i < 8; i++) {
                 if (isValid(n[i])) {
@@ -108,6 +113,7 @@ public class Graph {
 
     // Get the euclidean distance from one point to another
     public double getDistance(Point p1, Point p2) {
+        // "d" = distance
         double d = 0;
         double x1 = p1.getColumn();
         double x2 = p2.getColumn();
@@ -120,6 +126,8 @@ public class Graph {
 
         return d;
     }
+
+    // Below function NN at the moment
     /*
     private void makeDefault() {
         for (int c=0; c<grid.length; c++) {

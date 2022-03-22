@@ -5,11 +5,12 @@ import java.util.ArrayList;
 public class Path {
 
     // Path object used in class
-    private ArrayList<Point> path = new ArrayList<>();
+    // TODO make sure having this public doesn't break
+    public ArrayList<Point> path;
     // Cost field
-    private double cost = 0;
+    private double cost;
     // Heuristic field
-    private double heuristic = 0;
+    private double heuristic;
 
     // Constructor
     public Path() {}
@@ -53,15 +54,15 @@ public class Path {
     public void setHeuristic(int h) {
         heuristic = h;
     }
+
     // Checks to see if the path
     public boolean containsPoint(Point p) {
-        boolean output = false;
         for (int i  = 0; i < path.size(); i++) {
             if (path.get(i).equals(p)) {
-                output = true;
+                return true;
             }
         }
-        return output;
+        return false;
     }
 
     public String toString() {
