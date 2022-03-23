@@ -54,8 +54,8 @@ public class PathFollower {
         return new Vector2d(24*p.getColumn()-60, -24*p.getRow()-60);
     }
 
-    public TrajectoryBuilder followPath(SampleMecanumDrive drive, Pose2d endPose) {
-        TrajectoryBuilder traj = drive.trajectoryBuilder(endPose);
+    public TrajectoryBuilder followPath(SampleMecanumDrive drive) {
+        TrajectoryBuilder traj = drive.trajectoryBuilder(new Pose2d());
         for (int i=0; i<pathGrouper().size(); i++) {
             Point point = new Point(pathGrouper().get(i).getRow(), pathGrouper().get(i).getColumn());
             Vector2d out = unitConvert(point);
