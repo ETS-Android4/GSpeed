@@ -1,13 +1,9 @@
 package org.firstinspires.ftc.teamcode.gspeed;
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
-import kotlin.Unit;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 @TeleOp
 public class SamplePathFollowing extends LinearOpMode {
@@ -40,6 +36,6 @@ public class SamplePathFollowing extends LinearOpMode {
         telemetry.update();
 
         // Build the path (run it physically)
-        drive.followTrajectorySequence(follower.followPath(drive));
+        drive.followTrajectorySequence(follower.followGroupedPath(drive));
     }
 }

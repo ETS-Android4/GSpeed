@@ -5,22 +5,21 @@ import java.util.Arrays;
 
 public class Graph {
 
+    // TODO: Edit this grid if you would like to add or remove obstacles!
+    // See https://docs.google.com/document/d/1ihaYIR5PV7zJkeoPZMnFw0IMdx0QMIBUZOX28Eg6sWs/edit?usp=sharing
+    private final int[][] grid = {
+            /* 1 is open, 0 is closed */
+            new int[]{1, 1, 1, 1, 1, 1},
+            new int[]{1, 1, 1, 1, 1, 1},
+            new int[]{1, 1, 1, 1, 1, 1},
+            new int[]{1, 1, 1, 1, 1, 1},
+            new int[]{1, 1, 1, 1, 1, 1},
+            new int[]{1, 1, 1, 1, 1, 1}
+    };
+
     // Constructor
     public Graph() {
     }
-
-    // TODO: Edit this grid if you would like to add or remove obstacles!
-    // See https://docs.google.com/document/d/1ihaYIR5PV7zJkeoPZMnFw0IMdx0QMIBUZOX28Eg6sWs/edit?usp=sharing
-    private int[][] grid = {
-        /* 1 is open, 0 is closed */
-        new int[]{1, 1, 1, 1, 1, 1},
-        new int[]{1, 1, 1, 1, 1, 1},
-        new int[]{1, 1, 1, 1, 1, 1},
-        new int[]{1, 1, 1, 1, 1, 1},
-        new int[]{1, 1, 1, 1, 1, 1},
-        new int[]{1, 1, 1, 1, 1, 1}
-    };
-
 
     // Accessor for the grid
     public int[][] getGrid() {
@@ -114,7 +113,7 @@ public class Graph {
 
     // Below function NN at the moment
     public void makeDefault() {
-        for (int c=0; c<grid.length; c++) {
+        for (int c = 0; c < grid.length; c++) {
             Arrays.fill(grid[c], 1);
         }
     }

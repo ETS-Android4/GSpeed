@@ -26,30 +26,30 @@ public class PathFollower {
         return prevCurrSlope == currNextSlope;
     }
 
-    /*
-    private ArrayList<Point> pathGrouper() {
-        ArrayList<Point> out = new ArrayList<Point>();
+    private Path pathGrouper() {
+        // Grouped Path
+        Path out = new Path();
+
+        // Loop through path and add only points that do not have the same slope
+        for (int i = 1; i < path.getPath().size(); i++) {
+            if (!compareSlopes(path.getPath().get(i - 1), path.getPath().get(i), path.getPath().get(i + 1))) {
+                out.addPoint(path.getPath().get(i));
+            }
+        }
+
+        /* OLD CODE
         Point current = new Point(0, 0);
-        Point forward1 = new Point(0, 0);
-        Point back1 = new Point(0, 0);
-        for (int i = 0; i < path.getPath().size(); i++) {
+        for (int i = 1; i < path.getPath().size(); i++) {
+            // Runs once
             if (i == 1) {
-                out.add(new Point(path.getPath().get(i).getRow(), path.getPath().get(i).getColumn()));
+                out.addPoint(path.getPath().get(i));
+                // Set up point for else statement below
+                current = path.getPath().get(i+1);
             } else {
-
-                TODO how does this work?
-                back1 = current;
-
-                // y is before x
-                current = new Point(path.getPath().get(i).getRow(), path.getPath().get(i).getColumn());
-                forward1 = new Point(path.getPath().get(i + 1).getRow(), path.getPath().get(i + 1).getColumn());
-
-                // Conditions
-
-                TODO fix
-                why isn't there a condition for similar rows and not just columns?
-                do we even need this? don't we only need to compare slopes?
-
+                // Loop through path until a point is found that does not match the slope of the previous point
+                while (compareSlopes(path.getPath().get(i - 1), current, path.getPath().get(i))) {
+                    out.addPoint(current);
+                }
                 if (current.getColumn() == back1.getColumn() && current.getColumn() == forward1.getColumn()) {
                     // Don't Add
                 } else {
@@ -57,28 +57,30 @@ public class PathFollower {
                         out.add(path.getPath().get(i));
                     }
                 }
-
+                back1 = path.getPath().get(i - 1);
+                current = new Point(path.getPath().get(i).getRow(), path.getPath().get(i).getColumn());
+                forward1 = new Point(path.getPath().get(i + 1).getRow(), path.getPath().get(i + 1).getColumn());
             }
         }
+        */
+
         return out;
     }
-    */
 
-    /* TODO: refactor to match followPath after fixed original grouping method
-    public TrajectoryBuilder followPathWithGrouping(SampleMecanumDrive drive) {
-        TrajectoryBuilder traj = drive.trajectoryBuilder(new Pose2d());
+    public TrajectorySequence followGroupedPath(SampleMecanumDrive drive) {
 
         // Class to Convert Units
         UnitConverter converter = new UnitConverter();
 
-        for (int i=0; i<pathGrouper().size(); i++) {
-            Point point = new Point(pathGrouper().get(i).getRow(), pathGrouper().get(i).getColumn());
-            Vector2d out = converter.unitConvertVector(point);
+        TrajectorySequenceBuilder traj = drive.trajectorySequenceBuilder(converter.unitConvertPose(startPoint, startHeading));
+
+        for (int i = 0; i < pathGrouper().getPath().size(); i++) {
+            Vector2d out = converter.unitConvertVector(pathGrouper().getPath().get(i));
             traj.lineTo(new Vector2d());
         }
-        return traj;
+
+        return traj.build();
     }
-    */
 
     public TrajectorySequence followPath(SampleMecanumDrive drive) {
 
@@ -92,8 +94,6 @@ public class PathFollower {
             traj.lineTo(out);
         }
 
-        TrajectorySequence movement = traj.build();
-
-        return movement;
+        return traj.build();
     }
 }
