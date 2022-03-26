@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.gspeed;
 import java.util.ArrayList;
 
 public class PathBuilder {
-    // TODO: comment path builder
+
     private Graph grid;
     private Point start;
     private Point end;
@@ -29,11 +29,10 @@ public class PathBuilder {
         // Add starting point (of course)
         p.addPoint(start);
 
-        // todo   ???frontier???
         frontier.add(p);
 
         // looping until a return
-        while(true) {
+        while (true) {
             if (frontier.size() < 1) {
                 return new Path();
             }
@@ -47,13 +46,13 @@ public class PathBuilder {
             }
             // Search connected points
             ArrayList<Point> points = grid.getNeighbors(last);
-            for (int i=0; i<points.size(); i++) {
+            for (int i = 0; i < points.size(); i++) {
                 Point node = points.get(i);
                 int cost = grid.getValue(node);
                 double heuristic = grid.getDistance(node, end);
                 // New ArrayList<Point>, new Path
                 ArrayList<Point> newP = new ArrayList<Point>();
-                for (int j=0; j<current.getPath().size(); j++) {
+                for (int j = 0; j < current.getPath().size(); j++) {
                     newP.add(current.getPath().get(j));
                 }
                 newP.add(node);
@@ -68,7 +67,7 @@ public class PathBuilder {
 
     private boolean inVisited(Point p) {
         boolean output = false;
-        for (int i=0; i< visited.size(); i++) {
+        for (int i = 0; i < visited.size(); i++) {
             if (visited.get(i).equals(p)) {
                 output = true;
             }
@@ -78,7 +77,7 @@ public class PathBuilder {
 
     private boolean inFrontier(Point p) {
         boolean output = false;
-        for (int i=0; i< frontier.size(); i++) {
+        for (int i = 0; i < frontier.size(); i++) {
             if (frontier.get(i).containsPoint(p)) {
                 output = true;
             }
@@ -89,7 +88,7 @@ public class PathBuilder {
     private Path getSmallest() {
         double min = Double.POSITIVE_INFINITY;
         int index = 0;
-        for (int i=0; i<frontier.size(); i++) {
+        for (int i = 0; i < frontier.size(); i++) {
             Path p = frontier.get(i);
             double cost = p.getCost() + p.getHeuristic();
             if (cost < min) {

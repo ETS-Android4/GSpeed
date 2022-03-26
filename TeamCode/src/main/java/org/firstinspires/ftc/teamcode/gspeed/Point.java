@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.gspeed;
 
 public class Point {
-    // TODO: comment point
     private int r = 0;
     private int c = 0;
 
