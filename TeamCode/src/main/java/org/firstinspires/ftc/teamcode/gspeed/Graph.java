@@ -7,14 +7,14 @@ public class Graph {
 
     // TODO: Edit this grid if you would like to add or remove obstacles!
     // See https://docs.google.com/document/d/1ihaYIR5PV7zJkeoPZMnFw0IMdx0QMIBUZOX28Eg6sWs/edit?usp=sharing
-    private final int[][] grid = {
+    private final double[][] grid = {
             /* 1 is open, 0 is closed */
-            new int[]{1, 1, 1, 1, 1, 1},
-            new int[]{1, 1, 1, 1, 1, 1},
-            new int[]{1, 1, 1, 1, 1, 1},
-            new int[]{1, 1, 1, 1, 1, 1},
-            new int[]{1, 1, 1, 1, 1, 1},
-            new int[]{1, 1, 1, 1, 1, 1}
+            new double[]{1, 1, 1, 1, 1, 1},
+            new double[]{1, 1, 1, 1, 1, 1},
+            new double[]{1, 1, 1, 1, 1, 1},
+            new double[]{1, 1, 1, 1, 1, 1},
+            new double[]{1, 1, 1, 1, 1, 1},
+            new double[]{1, 1, 1, 1, 1, 1}
     };
 
     // Constructor
@@ -22,18 +22,18 @@ public class Graph {
     }
 
     // Accessor for the grid
-    public int[][] getGrid() {
+    public double[][] getGrid() {
         return grid;
     }
 
     // Accessor for the value of a point
-    public int getValue(Point p) {
-        return grid[p.getRow()][p.getRow()];
+    public double getValue(Point p) {
+        return grid[(int) p.getRow()][(int) p.getRow()];
     }
 
     // Modifier for setting the value of a point
     public void setValue(Point p, int v) {
-        grid[p.getRow()][p.getColumn()] = v;
+        grid[(int) p.getRow()][(int) p.getColumn()] = v;
     }
 
     // Printer for a visual grid
@@ -46,9 +46,9 @@ public class Graph {
         }
 
         for (int l = 0; l < path.getPath().size(); l++) {
-            int column = path.getPath().get(l).getColumn();
-            int row = path.getPath().get(l).getRow();
-            output[row][column] = "*";
+            double column = path.getPath().get(l).getColumn();
+            double row = path.getPath().get(l).getRow();
+            output[(int) row][(int) column] = "*";
         }
 
         String out = "\n";

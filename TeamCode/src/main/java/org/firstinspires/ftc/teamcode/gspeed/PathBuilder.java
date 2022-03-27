@@ -48,7 +48,7 @@ public class PathBuilder {
             ArrayList<Point> points = grid.getNeighbors(last);
             for (int i = 0; i < points.size(); i++) {
                 Point node = points.get(i);
-                int cost = grid.getValue(node);
+                double cost = grid.getValue(node);
                 double heuristic = grid.getDistance(node, end);
                 // New ArrayList<Point>, new Path
                 ArrayList<Point> newP = new ArrayList<Point>();

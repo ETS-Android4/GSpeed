@@ -21,8 +21,8 @@ public class PathFollower {
     }
 
     private boolean compareSlopes(Point prev, Point curr, Point next) {
-        int prevCurrSlope = (curr.getRow() - prev.getRow()) / (curr.getColumn() - prev.getRow());
-        int currNextSlope = (next.getRow() - curr.getRow()) / (next.getColumn() - curr.getRow());
+        double prevCurrSlope = (curr.getRow() - prev.getRow()) / (curr.getColumn() - prev.getRow());
+        double currNextSlope = (next.getRow() - curr.getRow()) / (next.getColumn() - curr.getRow());
         return prevCurrSlope == currNextSlope;
     }
 

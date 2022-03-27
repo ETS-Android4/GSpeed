@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.gspeed;
 
 public class Point {
-    private int r = 0;
-    private int c = 0;
+    private double r = 0;
+    private double c = 0;
 
-    public Point(int y, int x) {
+    public Point(double y, double x) {
         r = y;
         c = x;
     }
@@ -16,12 +16,12 @@ public class Point {
     }
 
     // y axis
-    public int getRow() {
+    public double getRow() {
         return r;
     }
 
     // x axis
-    public int getColumn() {
+    public double getColumn() {
         return c;
     }
 

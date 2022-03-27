@@ -16,7 +16,7 @@ public class Path {
     }
 
     // Overriding constructor for specifying a path
-    public Path(ArrayList<Point> p, int c, double h) {
+    public Path(ArrayList<Point> p, double c, double h) {
         path = p;
         cost = c;
         heuristic = h;
