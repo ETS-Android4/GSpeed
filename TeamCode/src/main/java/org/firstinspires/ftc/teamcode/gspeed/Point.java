@@ -4,7 +4,7 @@ public class Point {
     private double r = 0;
     private double c = 0;
 
-    public Point(double y, double x) {
+    public Point(double x, double y) {
         r = y;
         c = x;
     }

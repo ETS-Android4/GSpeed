@@ -8,11 +8,11 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuild
 
 public class PathFollower {
 
-    private Path path = new Path();
+    private Path path;
 
-    private Point startPoint = new Point(0, 0);
+    private Point startPoint;
 
-    private double startHeading = 0;
+    private double startHeading;
 
     public PathFollower(Path p, Point start, double startingHeading) {
         path = p;
@@ -21,52 +21,51 @@ public class PathFollower {
     }
 
     private boolean compareSlopes(Point prev, Point curr, Point next) {
-        double prevCurrSlope = (curr.getRow() - prev.getRow()) / (curr.getColumn() - prev.getRow());
-        double currNextSlope = (next.getRow() - curr.getRow()) / (next.getColumn() - curr.getRow());
-        return prevCurrSlope == currNextSlope;
+        int prevCurrSlope = 0;
+        int currNextSlope = 0;
+
+        boolean prevCurrVert = false;
+        boolean currNextVert = false;
+
+        if ((curr.getColumn() - prev.getRow()) != 0) {
+            prevCurrSlope = (curr.getRow() - prev.getRow()) / (curr.getColumn() - prev.getRow());
+        } else {
+            prevCurrVert = true;
+        }
+
+        if ((next.getColumn() - curr.getRow()) != 0) {
+            currNextSlope = (next.getRow() - curr.getRow()) / (next.getColumn() - curr.getRow());
+        } else {
+            currNextVert = true;
+        }
+
+        if (prevCurrVert && currNextVert) {
+            return true;
+        } else if (prevCurrVert || currNextVert) {
+            return false;
+        } else {
+            return prevCurrSlope == currNextSlope;
+        }
     }
 
-    private Path pathGrouper() {
+    // TODO: this function does not work
+    public Path pathGrouper() {
         // Grouped Path
         Path out = new Path();
 
         // Loop through path and add only points that do not have the same slope
         for (int i = 1; i < path.getPath().size(); i++) {
-            if (!compareSlopes(path.getPath().get(i - 1), path.getPath().get(i), path.getPath().get(i + 1))) {
-                out.addPoint(path.getPath().get(i));
+            if (i != path.getPath().size() - 1 && i != path.getPath().size()) {
+                if (!compareSlopes(path.getPath().get(i - 1), path.getPath().get(i), path.getPath().get(i + 1))) {
+                    out.addPoint(path.getPath().get(i));
+                }
             }
         }
-
-        /* OLD CODE
-        Point current = new Point(0, 0);
-        for (int i = 1; i < path.getPath().size(); i++) {
-            // Runs once
-            if (i == 1) {
-                out.addPoint(path.getPath().get(i));
-                // Set up point for else statement below
-                current = path.getPath().get(i+1);
-            } else {
-                // Loop through path until a point is found that does not match the slope of the previous point
-                while (compareSlopes(path.getPath().get(i - 1), current, path.getPath().get(i))) {
-                    out.addPoint(current);
-                }
-                if (current.getColumn() == back1.getColumn() && current.getColumn() == forward1.getColumn()) {
-                    // Don't Add
-                } else {
-                    if (!compareSlopes(back1, current, forward1)) {
-                        out.add(path.getPath().get(i));
-                    }
-                }
-                back1 = path.getPath().get(i - 1);
-                current = new Point(path.getPath().get(i).getRow(), path.getPath().get(i).getColumn());
-                forward1 = new Point(path.getPath().get(i + 1).getRow(), path.getPath().get(i + 1).getColumn());
-            }
-        }
-        */
 
         return out;
     }
 
+    // TODO; uses broken function, default to followPath()
     public TrajectorySequence followGroupedPath(SampleMecanumDrive drive) {
 
         // Class to Convert Units

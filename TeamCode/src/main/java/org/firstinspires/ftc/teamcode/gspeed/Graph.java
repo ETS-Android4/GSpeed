@@ -8,13 +8,14 @@ public class Graph {
     // TODO: Edit this grid if you would like to add or remove obstacles!
     // See https://docs.google.com/document/d/1ihaYIR5PV7zJkeoPZMnFw0IMdx0QMIBUZOX28Eg6sWs/edit?usp=sharing
     private final double[][] grid = {
-            /* 1 is open, 0 is closed */
-            new double[]{1, 1, 1, 1, 1, 1},
-            new double[]{1, 1, 1, 1, 1, 1},
-            new double[]{1, 1, 1, 1, 1, 1},
-            new double[]{1, 1, 1, 1, 1, 1},
-            new double[]{1, 1, 1, 1, 1, 1},
-            new double[]{1, 1, 1, 1, 1, 1}
+            /* 1 is open, use a relatively high number like 10 for obstacles */
+            new double[]{1, 1, 1, 1, 1, 1, 1},
+            new double[]{1, 1, 1, 1, 1, 1, 1},
+            new double[]{1, 1, 10, 1, 1, 1, 1},
+            new double[]{1, 1, 10, 1, 1, 1, 1},
+            new double[]{1, 1, 1, 1, 1, 1, 1},
+            new double[]{1, 10, 1, 1, 1, 1, 1},
+            new double[]{1, 1, 1, 1, 1, 1, 1}
     };
 
     // Constructor
@@ -28,17 +29,17 @@ public class Graph {
 
     // Accessor for the value of a point
     public double getValue(Point p) {
-        return grid[(int) p.getRow()][(int) p.getRow()];
+        return grid[(int) p.getRow()][(int) p.getColumn()];
     }
 
     // Modifier for setting the value of a point
-    public void setValue(Point p, int v) {
+    public void setValue(Point p, double v) {
         grid[(int) p.getRow()][(int) p.getColumn()] = v;
     }
 
     // Printer for a visual grid
     public String printPathFinder(Path path) {
-        String[][] output = new String[6][6];
+        String[][] output = new String[7][7];
         for (int i = 0; i < grid.length; i++) {
             for (int z = 0; z < grid[i].length; z++) {
                 output[i][z] = String.valueOf(grid[i][z]);
@@ -63,14 +64,14 @@ public class Graph {
 
     // Retrieves all neighbors (diagonal too)
     public ArrayList<Point> getNeighbors(Point p) {
-        Point up = new Point(p.getColumn() - 1, p.getRow());
-        Point down = new Point(p.getColumn() + 1, p.getRow());
-        Point left = new Point(p.getColumn(), p.getRow() - 1);
-        Point right = new Point(p.getColumn(), p.getRow() + 1);
-        Point upleft = new Point(p.getRow() - 1, p.getColumn() - 1);
-        Point downleft = new Point(p.getRow() + 1, p.getColumn() - 1);
-        Point upright = new Point(p.getRow() - 1, p.getColumn() + 1);
-        Point downright = new Point(p.getRow() + 1, p.getColumn() + 1);
+        Point up = new Point(p.getRow(), p.getColumn() - 1);
+        Point down = new Point(p.getRow(), p.getColumn() + 1);
+        Point left = new Point(p.getRow() - 1, p.getColumn());
+        Point right = new Point(p.getRow() + 1, p.getColumn());
+        Point upleft = new Point(p.getColumn() - 1, p.getRow() - 1);
+        Point downleft = new Point(p.getColumn() - 1, p.getRow() + 1);
+        Point upright = new Point(p.getColumn() + 1, p.getRow() - 1);
+        Point downright = new Point(p.getColumn() + 1, p.getRow() + 1);
 
         ArrayList<Point> out = new ArrayList<Point>();
         Point[] n = {up, down, left, right, upleft, downleft, upright, downright};
@@ -85,13 +86,13 @@ public class Graph {
     // Checks to see if a specified point is on the grid
     public boolean isValid(Point p) {
         boolean left = p.getColumn() > -1;
-        boolean right = p.getColumn() < 6;
+        boolean right = p.getColumn() < grid.length;
         boolean up = p.getRow() > -1;
-        boolean down = p.getRow() < 6;
+        boolean down = p.getRow() < grid.length;
         boolean upleft = p.getRow() > -1 && p.getColumn() > -1;
-        boolean downleft = p.getRow() < 6 && p.getColumn() > -1;
-        boolean upright = p.getRow() > -1 && p.getColumn() < 6;
-        boolean downright = p.getRow() < 6 && p.getColumn() < 6;
+        boolean downleft = p.getRow() < grid.length && p.getColumn() > -1;
+        boolean upright = p.getRow() > -1 && p.getColumn() < grid.length;
+        boolean downright = p.getRow() < grid.length && p.getColumn() < grid.length;
         return up && down && left && right && upleft && downleft && upright && downright;
     }
 
